@@ -1,0 +1,11 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block post %}
+    {{ PUser.username }}
+    <img src="{{ avatar.document.url }}" alt="Avatar">
+    {% if see %}
+        <a href="{% url 'forum:message' msid%}">Диалог</a>
+    {% else %}
+        <a href="{% url 'forum:startmes' PUser.id%}">Написать</a>
+    {% endif %}
+{% endblock %}

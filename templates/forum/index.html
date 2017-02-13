@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+{% block post %}
+    {% if request.user.is_authenticated %}
+        <a href="/forum/createpost/">Post</a>
+    {% else %}
+        <p>Вы не вошли</p>
+    {% endif %}
+    {%  if latest_post_list %}
+        <ul>
+        {% for post in latest_post_list %}
+            <li><a href="{% url 'forum:detail' post.id %}">{{ post.post_name }}</a> {{ post.post_user }}</li>
+        {% endfor %}
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+{% endblock %}

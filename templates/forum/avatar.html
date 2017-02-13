@@ -1,0 +1,6 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block post %}
+    <img src = "{{ avatar.document.url }}" alt="image here" />
+    <a href="/forum/avatar/add/">Change avatar</a>
+{% endblock %}

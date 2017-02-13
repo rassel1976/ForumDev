@@ -1,0 +1,28 @@
+<html>
+<head>
+
+    <title>Django</title>
+</head>
+<body>
+    {% if errors %}
+        <ul>
+            {% for error in errors %}
+                <li style="color: red;">{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action="" method="post">
+        <label>Имя</label>
+        <input name="name" type="text" value="{{ form.name }}">
+
+        <input type="submit" value="Отправить">
+        {% csrf_token %}
+    </form>
+    {% if search_users %}
+        {% for user in search_users %}
+            <li><a href="{% url 'forum:user' user.id %}">{{ user.username }}</a></li>
+        {% endfor %}
+    {% endif %}
+</body>
+</html>
