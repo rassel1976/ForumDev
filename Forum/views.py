@@ -108,6 +108,8 @@ def AvatarView(request):
     args['avatar'] = Document.objects.get(description=request.user.username)
     args['request'] = request
     args['form'] = DocumentForm
+    args['fuserms'] = FMessage.objects.filter(fuser=request.user.username)
+    args['suserms'] = FMessage.objects.filter(suser=request.user.username)
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
@@ -173,13 +175,29 @@ def UserPage(request, user_id):
 def MessagePage(request, message_id):
     args = {}
     args.update(csrf(request))
+    args['request'] = request
     args['fmessage'] = FMessage.objects.get(id = message_id)
     args['omessages'] = OMessage.objects.filter(sm_fm_id=message_id)
     args['form'] = OMessageForm
     if FMessage.objects.get(id = message_id).fuser == request.user.username:
         args['ouser'] = CustomUser.objects.get(username = FMessage.objects.get(id = message_id).suser)
+        args['ouserav'] = Document.objects.get(description=FMessage.objects.get(id = message_id).suser)
+        args['fuserav'] = Document.objects.get(description=request.user.username)
     else:
         args['ouser'] = CustomUser.objects.get(username=FMessage.objects.get(id=message_id).fuser)
+        args['ouserav'] = Document.objects.get(description=FMessage.objects.get(id=message_id).fuser)
+        args['fuserav'] = Document.objects.get(description=request.user.username)
+    if request.POST:
+        form = OMessageForm(request.POST)
+        if form.is_valid():
+            commit = form.save(commit=False)
+            commit.sm_fm_id = message_id
+            commit.user = request.user
+            commit.save()
+            redirect("/forum/message/%s"%message_id)
+    return render_to_response('forum/messages.html',args)
+
+
 
 
 def CreateMessage(request, user_id):

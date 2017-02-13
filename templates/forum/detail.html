@@ -10,7 +10,11 @@
         <p>{{ comment.comment_text }}
             {% for user in users %}
                 {% if comment.comment_name == user.username %}
-                     <a href="{% url 'forum:user' user.id%}">{{ user.username }}</a>
+                    {% if request.user.username !=  comment.comment_name%}
+                        <a href="{% url 'forum:user' user.id%}">{{ user.username }}</a>
+                    {% else %}
+                        <a href="/forum/avatar">{{ user.username }}</a>
+                    {% endif %}
                     {% for avatar in avatars %}
                         {% if avatar.description == user.username %}
                             <img src="{{ avatar.document.url }}" alt="Avatar">

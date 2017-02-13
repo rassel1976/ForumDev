@@ -3,9 +3,13 @@
 {% block post %}
     {{ PUser.username }}
     <img src="{{ avatar.document.url }}" alt="Avatar">
-    {% if see %}
-        <a href="{% url 'forum:message' msid%}">Диалог</a>
+    {% if request.user.is_authenticated %}
+        {% if see %}
+            <a href="{% url 'forum:message' msid%}">Диалог</a>
+        {% else %}
+            <a href="{% url 'forum:startmes' PUser.id%}">Написать</a>
+        {% endif %}
     {% else %}
-        <a href="{% url 'forum:startmes' PUser.id%}">Написать</a>
+        <li>Вы не вошли</li>
     {% endif %}
 {% endblock %}

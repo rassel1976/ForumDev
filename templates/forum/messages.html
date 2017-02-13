@@ -1,0 +1,30 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block post %}
+    <li>Разговор с {{ ouser.username }}</li>
+    <p>
+        {{ fmessage.message }}
+        {% if request.user.username == fmessage.fuser %}
+            <a href="/forum/avatar">{{ request.user.username }}</a>
+            <img src = "{{ fuserav.document.url }}">
+        {% else %}
+            <a href="{% url 'forum:user' ouser.id%}">{{ ouser.username }}</a>
+            <img src="{{ ouserav.document.url }}">
+        {% endif %}
+    </p>
+    {% for message in omessages %}
+        {{ message.message }}
+        {% if request.user.username == message.user %}
+            <a href="/forum/avatar">{{ request.user.username }}</a>
+            <img src = "{{ fuserav.document.url }}">
+        {% else %}
+            <a href="{% url 'forum:user' ouser.id%}">{{ ouser.username }}</a>
+            <img src="{{ ouserav.document.url }}">
+        {% endif %}
+    {% endfor %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="button" value="Отослать">
+    </form>
+{% endblock %}

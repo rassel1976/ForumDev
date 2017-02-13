@@ -3,4 +3,11 @@
 {% block post %}
     <img src = "{{ avatar.document.url }}" alt="image here" />
     <a href="/forum/avatar/add/">Change avatar</a>
+    {% for fms in fuserms %}
+        <a href="{% url 'forum:message' fms.id%}">Диалог с {{ fms.suser }}</a>
+    {% endfor %}
+    {% for sms in suserms %}
+        <a href="{% url 'forum:message' sms.id%}">Диалог с {{ sms.fuser }}</a>
+    {% endfor %}
+
 {% endblock %}
