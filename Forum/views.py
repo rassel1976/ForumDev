@@ -152,7 +152,7 @@ def contact(request):
         if not errors:
             search_users = CustomUser.objects.filter(username__contains=form['name'])
 
-    return render(request, 'contact.html', {'errors': errors, 'form': form, 'search_users': search_users})
+    return render(request, 'forum/contact.html', {'errors': errors, 'form': form, 'search_users': search_users})
 
 def UserPage(request, user_id):
     args = {}

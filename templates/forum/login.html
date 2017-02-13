@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Вход</title>
-  </head>
-  <body>
+{% extends 'main.html' %}
+{% load static %}
+{% block post %}
     <form action="" method="post">
       {% csrf_token %}
       <!-- as_p для того, чтобы каждый элемент формы был с новой строки -->
       {{ form.as_p }}
       <button type="submit">Вход</button>
     </form>
-  </body>
-</html>
+{% endblock %}

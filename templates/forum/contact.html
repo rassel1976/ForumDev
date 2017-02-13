@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block post %}
+    <form action="" method="post">
+        <label>Имя</label>
+        <input name="name" type="text" value="{{ form.name }}">
+
+        <input type="submit" value="Отправить">
+        {% csrf_token %}
+    </form>
+    {% if search_users %}
+        {% for user in search_users %}
+            <li><a href="{% url 'forum:user' user.id %}">{{ user.username }}</a></li>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
