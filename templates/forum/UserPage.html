@@ -1,14 +1,24 @@
 {% extends 'main.html' %}
 {% load static %}
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
 {% block post %}
-    {{ PUser.username }}
-    <img src="{{ avatar.document.url }}" alt="Avatar">
+    <h1>{{ PUser.username }}</h1><br>
+    <img src="{{ avatar.document.url }}" alt="Avatar"><br>
     {% if request.user.is_authenticated %}
+        {% buttons %}
         {% if see %}
-            <a href="{% url 'forum:message' msid%}">Диалог</a>
+            <button class="btn btn-default">
+                <a href="{% url 'forum:message' msid%}">Диалог</a>
+            </button>
         {% else %}
-            <a href="{% url 'forum:startmes' PUser.id%}">Написать</a>
+            <button class="btn btn-default">
+                <a href="{% url 'forum:startmes' PUser.id%}">Написать</a>
+            </button>
         {% endif %}
+        {% endbuttons %}
     {% else %}
         <li>Вы не вошли</li>
     {% endif %}

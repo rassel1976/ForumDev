@@ -25,6 +25,9 @@ class IndexView(generic.ListView):
 
 
 def detailView(request, post_id):
+    if not Document.objects.filter(description=request.user.username):
+        av1 = Document(document=request.user.avatar, description=request.user.username)
+        av1.save()
     comment_form = CommentForm
     args = {}
     args.update(csrf(request))

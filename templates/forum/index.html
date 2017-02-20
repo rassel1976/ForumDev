@@ -22,11 +22,13 @@
         <p>Вы не вошли</p>
     {% endif %}
     {%  if latest_post_list %}
+        <p>
         {% for post in latest_post_list %}
             <div class="post_style">
                 <a href="{% url 'forum:detail' post.id %}">{{ post.post_name }}</a> {{ post.post_user }}
             </div>
         {% endfor %}
+        </p>
     {% else %}
         <p>No polls are available.</p>
     {% endif %}

@@ -22,7 +22,7 @@
         <p><h1>Форум</h1></p>
         <div class="authStyle">
             {% if request.user.is_authenticated %}
-                <p>Вы вощли как <a href="/forum/avatar">{{ request.user.username }}</a></p>
+                <p>Вы вошли как <a href="/forum/avatar">{{ request.user.username }}</a></p>
                 {% buttons %}
                     <button class="btn btn btn-default">
                         <a href="/forum/logout/">Выход</a>
