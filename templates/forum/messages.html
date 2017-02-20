@@ -1,30 +1,54 @@
 {% extends 'main.html' %}
 {% load static %}
+{% load widget_tweaks %}
+{% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
 {% block post %}
+    <style type = "text/css">
+        .comment_style{
+            margin-right: 0;
+            margin-left: 0;
+            width: 100%;
+            outline: 2px solid #000;
+        }
+        .form_style{
+            width: 100%;
+            margin: 0 auto;
+        }
+    </style>
     <li>Разговор с {{ ouser.username }}</li>
+    <div class="comment_style">
     <p>
-        {{ fmessage.message }}
         {% if request.user.username == fmessage.fuser %}
             <a href="/forum/avatar">{{ request.user.username }}</a>
-            <img src = "{{ fuserav.document.url }}">
+            <img src = "{{ fuserav.document.url }}" width="100" height="100">
         {% else %}
             <a href="{% url 'forum:user' ouser.id%}">{{ ouser.username }}</a>
-            <img src="{{ ouserav.document.url }}">
+            <img src="{{ ouserav.document.url }}" width="100" height="100">
         {% endif %}
+        {{ fmessage.message }}
     </p>
+    </div>
     {% for message in omessages %}
-        {{ message.message }}
+        <p>
+        <div class="comment_style">
         {% if request.user.username == message.user %}
             <a href="/forum/avatar">{{ request.user.username }}</a>
-            <img src = "{{ fuserav.document.url }}">
+            <img src = "{{ fuserav.document.url }}" width="100" height="100">
         {% else %}
             <a href="{% url 'forum:user' ouser.id%}">{{ ouser.username }}</a>
-            <img src="{{ ouserav.document.url }}">
+            <img src="{{ ouserav.document.url }}" width="100" height="100">
         {% endif %}
+        {{ message.message }}
+        </div>
+        </p>
     {% endfor %}
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        Текст сообщения:
+        {{ form.message|add_class:'form_style' }}
         <input type="submit" class="button" value="Отослать">
     </form>
 {% endblock %}

@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^logout/$', views.LogoutView.as_view()),
     url(r'^avatar/$', views.AvatarView),
     url(r'^avatar/add/$',views.AvatarUploadView),
-    url(r'^contact/$', views.contact),
+    url(r'^search/$', views.search, name='search'),
     url(r'^user/(?P<user_id>[0-9]+)/$',views.UserPage,name='user'),
     url(r'^message/(?P<message_id>[0-9]+)/$',views.MessagePage,name='message'),
     url(r'^message/(?P<user_id>[0-9]+)/add/$',views.CreateMessage, name='startmes'),

@@ -1,13 +1,29 @@
 {% extends 'main.html' %}
 {% load static %}
+{% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
 {% block post %}
-    <img src = "{{ avatar.document.url }}" alt="image here" />
-    <a href="/forum/avatar/add/">Change avatar</a>
-    {% for fms in fuserms %}
-        <a href="{% url 'forum:message' fms.id%}">Диалог с {{ fms.suser }}</a>
-    {% endfor %}
-    {% for sms in suserms %}
-        <a href="{% url 'forum:message' sms.id%}">Диалог с {{ sms.fuser }}</a>
-    {% endfor %}
+    <h1>{{ request.user.username }}</h1><br>
+    <img src = "{{ avatar.document.url }}" alt="image here" /><br>
+    {% buttons %}
+        <button class="btn btn-default">
+            <a href="/forum/avatar/add/">Change avatar</a>
+        </button>
+        <br>
+        {% for fms in fuserms %}
+            <button class="btn btn-default">
+                <a href="{% url 'forum:message' fms.id%}">Диалог с {{ fms.suser }}</a>
+            </button>
+            <br>
+        {% endfor %}
+        {% for sms in suserms %}
+            <button class = "btn btn-default">
+                <a href="{% url 'forum:message' sms.id%}">Диалог с {{ sms.fuser }}</a>
+            </button>
+            <br>
+        {% endfor %}
+    {% endbuttons %}
 
 {% endblock %}

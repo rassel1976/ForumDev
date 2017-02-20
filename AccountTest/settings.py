@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Forum',
+    'bootstrap3',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE_CLASSES = [

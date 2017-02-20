@@ -28,6 +28,8 @@ def detailView(request, post_id):
     comment_form = CommentForm
     args = {}
     args.update(csrf(request))
+    args['CUser'] = CustomUser.objects.get(username = Post.objects.get(id = post_id).post_user)
+    args['CUserAvatar'] = Document.objects.get(description=Post.objects.get(id = post_id).post_user)
     args['Post'] = Post.objects.get(id=post_id)
     args['comments'] = Comment.objects.filter(comment_post_id=post_id)
     args['users'] = CustomUser.objects.all()
@@ -139,7 +141,7 @@ def AvatarUploadView(request):
         'form': form
     })
 
-def contact(request):
+def search(request):
     errors = []
     form = {}
     search_users = {}

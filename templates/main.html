@@ -3,16 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    {% bootstrap_messages %}
+    <style type="text/css">
+        .centerStyle{
+            margin:0 auto;
+            width: 70%;
+        }
+        .authStyle{
+            margin-left:80%;
+        }
+    </style>
 </head>
 <body>
-    <p><h1>Форум</h1></p>
-    {% if request.user.is_authenticated %}
-        <p>Вы вощли как <a href="/forum/avatar">{{ request.user.username }}</a></p>
-        <a href="/forum/logout/"><h1>Выход</h1></a>
-    {% else %}
-        <a href="/forum/register/"><h1>Регистрация</h1></a>
-        <a href="/forum/login/"><h1>Вход</h1></a>
-    {% endif %}
-    {% block post %}{% endblock %}
+    <div class="centerStyle">
+        <p><h1>Форум</h1></p>
+        <div class="authStyle">
+            {% if request.user.is_authenticated %}
+                <p>Вы вощли как <a href="/forum/avatar">{{ request.user.username }}</a></p>
+                {% buttons %}
+                    <button class="btn btn btn-default">
+                        <a href="/forum/logout/">Выход</a>
+                    </button>
+                {% endbuttons %}
+            {% else %}
+                {% buttons %}
+                    <button class="btn btn-default">
+                        <a href="/forum/register/">Регистрация</a>
+                    </button>
+                    <button class="btn btn-default">
+                        <a href="/forum/login/">Вход</a>
+                    </button>
+                {% endbuttons %}
+            {% endif %}
+        </div>
+        {% buttons %}
+            <button class="btn btn-default">
+            <a href="/forum/">Главная</a><br>
+            </button>
+            <button class="btn btn-default">
+                <a href="{% url 'forum:search' %}">Поиск</a>
+            </button>
+        {% endbuttons %}
+        {% block post %}
+        {% endblock %}
+    </div>
 </body>
 </html>
